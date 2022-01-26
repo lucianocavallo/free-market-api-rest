@@ -13,12 +13,7 @@ function boomErrorHandler(
   next(err);
 }
 
-function errorHandler(
-  err: any,
-  req: Request,
-  res: Response,
-  next: NextFunction
-) {
+function errorHandler(err: any, req: Request, res: Response) {
   console.error("ErrorHandler: ", err);
   if (!err.isBoom) {
     res.status(500).json(err);
