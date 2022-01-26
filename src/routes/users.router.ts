@@ -1,19 +1,17 @@
 import express, { Request, Response, NextFunction } from "express";
+import UserService from "../services/user.service";
 
 const router = express.Router();
+const service = new UserService();
 
-router.get("/", (req: Request, res: Response, next: NextFunction) => {
-  res.status(200).json([
-    { email: "juancito@mail.com", password: "admin123" },
-    { email: "pepito@mail.com", password: "admin123" },
-  ]);
+router.get("/", async (req: Request, res: Response, next: NextFunction) => {
+  const users = await service.find();
+  res.status(200).json(users);
 });
 
-router.get("/:id", (req: Request, res: Response, next: NextFunction) => {
-  const { id } = req.params;
-
-  res.status(200).json({
-    id,
-  });
+router.get("/:id", async (req: Request, res: Response, next: NextFunction) => {
+  // const { id } = req.params;
+  const user = await service.findOne();
+  res.status(200).json(user);
 });
 export default router;
