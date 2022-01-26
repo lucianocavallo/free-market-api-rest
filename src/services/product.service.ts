@@ -1,3 +1,4 @@
+import boom from "@hapi/boom";
 class ProductService {
   create() {
     return new Promise((resolve, reject) => {
@@ -6,10 +7,7 @@ class ProductService {
   }
   find() {
     return new Promise((resolve, reject) => {
-      resolve([
-        { name: "Camisa 1", price: 10 },
-        { name: "camisa 2", price: 15 },
-      ]);
+      throw boom.notFound();
     });
   }
   findOne() {

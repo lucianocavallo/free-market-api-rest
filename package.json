@@ -12,6 +12,7 @@
   "author": "Luciano Cavallo <lucianocavallo@gmail.com>",
   "license": "MIT",
   "dependencies": {
+    "@hapi/boom": "^9.1.4",
     "express": "^4.17.2"
   },
   "devDependencies": {
