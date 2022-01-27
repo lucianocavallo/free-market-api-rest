@@ -1,7 +1,7 @@
 import Joi from "joi";
 
 const id = Joi.string().regex(/^[0-9a-fA-F]{24}$/);
-const name = Joi.string().min(3).max(20);
+const name = Joi.string().min(3).max(30);
 const price = Joi.number();
 const description = Joi.string();
 const image = Joi.string().uri();

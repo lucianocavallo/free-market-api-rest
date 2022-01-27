@@ -34,3 +34,10 @@ interface InputOrder {
   customer: string;
   products: string[];
 }
+
+type CorsOptions =
+  | CorsOptions
+  | CorsOptionsDelegate<
+      Request<ParamsDictionary, any, any, ParsedQs, Record<string, any>>
+    >
+  | undefined;

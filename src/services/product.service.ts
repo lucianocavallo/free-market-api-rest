@@ -24,7 +24,7 @@ class ProductService {
   }
 
   async findOne(id: string) {
-    const product = await ProductModel.findById(id);
+    const product = await ProductModel.findById(id).populate("category");
     if (!product) {
       throw boom.notFound("product not found");
     }
@@ -42,13 +42,17 @@ class ProductService {
   }
 
   async delete(id: string) {
-    const product = await ProductModel.findByIdAndDelete(id);
-    if (!product) {
-      throw boom.notFound("product not found");
+    try {
+      const product = await ProductModel.findByIdAndDelete(id);
+      if (!product) {
+        throw boom.notFound("product not found");
+      }
+      const category = await CategoryModel.findById(product.category);
+      category.products.filter((item: string) => JSON.stringify(item) !== id);
+      return { product, category };
+    } catch (error) {
+      throw boom.conflict(error as string);
     }
-    const category = await CategoryModel.findById(product.category);
-    category.products.filter((item: string) => JSON.stringify(item) !== id);
-    return { product, category };
   }
 }
 

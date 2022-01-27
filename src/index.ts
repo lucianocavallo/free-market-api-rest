@@ -1,15 +1,17 @@
 import express, { Request, Response, Application } from "express";
+
 import routerApi from "./routes";
 import { connectDb } from "./libs/mongoose";
 import { config } from "./config/config";
 import { errorHandler, boomErrorHandler } from "./middlewares/error.handler";
+import { corsApi } from "./utils/cors";
 
 connectDb(config.mongoDbUri);
 
 const app: Application = express();
-const port = 3000;
 
 app.use(express.json());
+app.use(corsApi());
 
 import "./utils/auth";
 
@@ -22,4 +24,6 @@ app.use("/", (req: Request, res: Response) => {
 app.use(boomErrorHandler);
 app.use(errorHandler);
 
-app.listen(port, () => console.log(`Server running on port: ${port}`));
+app.listen(config.port, () =>
+  console.log(`Server running on port: ${config.port}`)
+);
