@@ -1,22 +1,40 @@
+import { ProductModel } from "../models/product.model";
 import boom from "@hapi/boom";
 class ProductService {
-  create() {
-    return new Promise((resolve, reject) => {
-      resolve("new user created");
-    });
+  async create(data: InputProduct) {
+    const newProduct = new ProductModel(data);
+    try {
+      return await newProduct.save();
+    } catch (error) {
+      throw boom.conflict(error as string);
+    }
   }
-  find() {
-    return new Promise((resolve, reject) => {
-      throw boom.notFound();
-    });
+  async find() {
+    return await ProductModel.find();
   }
-  findOne() {
-    return new Promise((resolve, reject) => {
-      resolve({ name: "Camisa 1", price: 10 });
-    });
+  async findOne(id: string) {
+    const product = await ProductModel.findById(id);
+    if (!product) {
+      throw boom.notFound("product not found");
+    }
+    return product;
   }
-  update() {}
-  delete() {}
+  async update(id: string, changes: InputProduct) {
+    const product = await ProductModel.findByIdAndUpdate(id, changes, {
+      new: true,
+    });
+    if (!product) {
+      throw boom.notFound("product not found");
+    }
+    return product;
+  }
+  async delete(id: string) {
+    const product = await ProductModel.findByIdAndDelete(id);
+    if (!product) {
+      throw boom.notFound("product not found");
+    }
+    return product;
+  }
 }
 
 export default ProductService;

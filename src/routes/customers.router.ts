@@ -1,24 +1,24 @@
 import express, { Request, Response, NextFunction } from "express";
-import ProductService from "../services/product.service";
+import CustomerService from "../services/customer.service";
 
-import { validatorHandler } from "../middlewares/validator.handler";
 import {
-  getProductSchema,
-  createProductSchema,
-  updateProductSchema,
-} from "../schemas/product.schema";
+  getCustomerSchema,
+  createCustomerSchema,
+  updateCustomerSchema,
+} from "../schemas/customer.schema";
+import { validatorHandler } from "../middlewares/validator.handler";
 
 const router = express.Router();
-const service = new ProductService();
+const service = new CustomerService();
 
 router.post(
   "/",
-  validatorHandler(createProductSchema, "body"),
+  validatorHandler(createCustomerSchema, "body"),
   async (req: Request, res: Response, next: NextFunction) => {
     try {
       const { body } = req;
-      const newProduct = await service.create(body);
-      res.status(200).json(newProduct);
+      const users = await service.create(body);
+      res.status(200).json(users);
     } catch (error) {
       next(error);
     }
@@ -27,8 +27,8 @@ router.post(
 
 router.get("/", async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const products = await service.find();
-    res.status(200).json(products);
+    const users = await service.find();
+    res.status(200).json(users);
   } catch (error) {
     next(error);
   }
@@ -36,12 +36,12 @@ router.get("/", async (req: Request, res: Response, next: NextFunction) => {
 
 router.get(
   "/:id",
-  validatorHandler(getProductSchema, "params"),
+  validatorHandler(getCustomerSchema, "params"),
   async (req: Request, res: Response, next: NextFunction) => {
     try {
       const { id } = req.params;
-      const product = await service.findOne(id);
-      res.status(200).json(product);
+      const user = await service.findOne(id);
+      res.status(200).json(user);
     } catch (error) {
       next(error);
     }
@@ -50,14 +50,14 @@ router.get(
 
 router.patch(
   "/:id",
-  validatorHandler(getProductSchema, "params"),
-  validatorHandler(updateProductSchema, "body"),
+  validatorHandler(getCustomerSchema, "params"),
+  validatorHandler(updateCustomerSchema, "body"),
   async (req: Request, res: Response, next: NextFunction) => {
     try {
       const { id } = req.params;
       const { body } = req;
-      const product = await service.update(id, body);
-      res.status(200).json(product);
+      const servRes = await service.update(id, body);
+      res.status(200).json(servRes);
     } catch (error) {
       next(error);
     }
@@ -66,16 +66,15 @@ router.patch(
 
 router.delete(
   "/:id",
-  validatorHandler(getProductSchema, "params"),
+  validatorHandler(getCustomerSchema, "params"),
   async (req: Request, res: Response, next: NextFunction) => {
     try {
       const { id } = req.params;
-      const product = await service.delete(id);
-      res.status(200).json(product);
+      const servRes = await service.delete(id);
+      res.status(200).json(servRes);
     } catch (error) {
       next(error);
     }
   }
 );
-
 export default router;

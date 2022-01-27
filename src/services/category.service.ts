@@ -1,24 +1,40 @@
+import { CategoryModel } from "../models/category.model";
+import boom from "@hapi/boom";
 class CategoryService {
-  create() {
-    return new Promise((resolve, reject) => {
-      resolve("new user created");
-    });
+  async create(data: InputCategory) {
+    const newCategory = new CategoryModel(data);
+    try {
+      return await newCategory.save();
+    } catch (error) {
+      throw boom.conflict(error as string);
+    }
   }
-  find() {
-    return new Promise((resolve, reject) => {
-      resolve([
-        { name: "Juegos", image: "http://images.com/640" },
-        { name: "Electrónica", image: "http://images.com/640" },
-      ]);
-    });
+  async find() {
+    return await CategoryModel.find();
   }
-  findOne() {
-    return new Promise((resolve, reject) => {
-      resolve({ name: "Juegos", image: "http://images.com/640" });
-    });
+  async findOne(id: string) {
+    const category = await CategoryModel.findById(id);
+    if (!category) {
+      throw boom.notFound("category not found");
+    }
+    return category;
   }
-  update() {}
-  delete() {}
+  async update(id: string, changes: InputCategory) {
+    const category = await CategoryModel.findByIdAndUpdate(id, changes, {
+      new: true,
+    });
+    if (!category) {
+      throw boom.notFound("category not found");
+    }
+    return category;
+  }
+  async delete(id: string) {
+    const category = await CategoryModel.findByIdAndDelete(id);
+    if (!category) {
+      throw boom.notFound("category not found");
+    }
+    return category;
+  }
 }
 
 export default CategoryService;

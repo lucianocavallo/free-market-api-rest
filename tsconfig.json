@@ -12,9 +12,7 @@
     "strict": true /* Enable all strict type-checking options. */,
     // "noImplicitAny": true,                            /* Enable error reporting for expressions and declarations with an implied `any` type.. */
     "skipLibCheck": true /* Skip type checking all .d.ts files. */
-    // "typeRoots": [
-    //   "./"
-    // ] /* Specify multiple folders that act like `./node_modules/@types`. */
+    // "typeRoots": ["./", "./node_modules/@types/"]
     // "paths": {},                                      /* Specify a set of entries that re-map imports to additional lookup locations. */
   }
 }

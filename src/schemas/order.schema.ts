@@ -3,17 +3,17 @@ import Joi from "joi";
 const id = Joi.string().regex(/^[0-9a-fA-F]{24}$/);
 const products = Joi.array();
 
-const createCustomerSchema = Joi.object({
+const createOrderSchema = Joi.object({
   customer: id,
   products: products.required(),
 });
 
-const updateCustomerSchema = Joi.object({
+const updateOrderSchema = Joi.object({
   products,
 });
 
-const getCustomerSchema = Joi.object({
+const getOrderSchema = Joi.object({
   id: id.required(),
 });
 
-export { createCustomerSchema, updateCustomerSchema, getCustomerSchema };
+export { createOrderSchema, updateOrderSchema, getOrderSchema };

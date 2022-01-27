@@ -8,11 +8,14 @@ connectDb(config.mongoDbUri);
 
 const app: Application = express();
 
+app.use(express.json());
+
 const port = 3000;
 
 routerApi(app);
 
-app.use("*", (req: Request, res: Response) => {
+app.use("/", (req: Request, res: Response) => {
+  // throw new Error("broken!");
   res.send("<h1>Hola mi server en express</h1>");
 });
 
