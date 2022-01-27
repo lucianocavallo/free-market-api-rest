@@ -26,6 +26,14 @@ class UserService {
     return user;
   }
 
+  async findByEmail(email: string) {
+    const user = await UserModel.findOne({ email });
+    if (!user) {
+      throw boom.notFound("user not found");
+    }
+    return user;
+  }
+
   async update(id: string, changes: InputUser) {
     const user = await UserModel.findByIdAndUpdate(id, changes, { new: true });
     if (!user) {

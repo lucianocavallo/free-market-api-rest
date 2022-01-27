@@ -7,10 +7,11 @@ import { errorHandler, boomErrorHandler } from "./middlewares/error.handler";
 connectDb(config.mongoDbUri);
 
 const app: Application = express();
+const port = 3000;
 
 app.use(express.json());
 
-const port = 3000;
+import "./utils/auth";
 
 routerApi(app);
 
