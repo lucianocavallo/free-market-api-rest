@@ -7,6 +7,7 @@ const URI = encodeURI(<string>process.env.MONGODB_URI);
 const config = {
   mongoDbUri: URI,
   port: process.env.PORT,
+  jwtSecret: process.env.JWT_SECRET,
 };
 
 export { config };
