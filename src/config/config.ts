@@ -8,6 +8,7 @@ const config = {
   mongoDbUri: URI,
   port: process.env.PORT,
   jwtSecret: process.env.JWT_SECRET,
+  apiKey: process.env.API_KEY,
 };
 
 export { config };

@@ -1,13 +1,14 @@
 import express, { Request, Response, NextFunction } from "express";
-import CategoryService from "../services/category.service";
 import passport from "passport";
 
+import CategoryService from "../services/category.service";
+import { checkRoles } from "../middlewares/auth.handler";
+import { validatorHandler } from "../middlewares/validator.handler";
 import {
   getCategorySchema,
   createCategorySchema,
   updateCategorySchema,
 } from "../schemas/category.schema";
-import { validatorHandler } from "../middlewares/validator.handler";
 
 const router = express.Router();
 const service = new CategoryService();
@@ -15,6 +16,7 @@ const service = new CategoryService();
 router.post(
   "/",
   passport.authenticate("jwt", { session: false }),
+  checkRoles(["admin", "seller"]),
   validatorHandler(createCategorySchema, "body"),
   async (req: Request, res: Response, next: NextFunction) => {
     try {
@@ -52,6 +54,8 @@ router.get(
 
 router.patch(
   "/:id",
+  passport.authenticate("jwt", { session: false }),
+  checkRoles(["admin", "seller"]),
   validatorHandler(getCategorySchema, "params"),
   validatorHandler(updateCategorySchema, "body"),
   async (req: Request, res: Response, next: NextFunction) => {
@@ -69,6 +73,7 @@ router.patch(
 router.delete(
   "/:id",
   passport.authenticate("jwt", { session: false }),
+  checkRoles(["admin", "seller"]),
   validatorHandler(getCategorySchema, "params"),
   async (req: Request, res: Response, next: NextFunction) => {
     try {
