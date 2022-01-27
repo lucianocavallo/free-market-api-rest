@@ -13,6 +13,7 @@
   "license": "MIT",
   "dependencies": {
     "@hapi/boom": "^9.1.4",
+    "bcrypt": "^5.0.1",
     "express": "^4.17.2",
     "joi": "^17.5.0",
     "mongoose": "^6.1.8"
