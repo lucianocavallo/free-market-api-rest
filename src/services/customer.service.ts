@@ -1,11 +1,17 @@
 import { CustomerModel } from "../models/customer.model";
 import { UserModel } from "../models/user.model";
 import boom from "@hapi/boom";
+import bcrypt from "bcrypt";
 
 class CustomerService {
   async create(data: InputCustomer) {
     const { user } = data;
-    const newUser = new UserModel({ ...user, role: "customer" });
+    const hash = await bcrypt.hash(user.password, 10);
+    const newUser = new UserModel({
+      ...user,
+      password: hash,
+      role: "customer",
+    });
     let userRes;
     try {
       userRes = await newUser.save();
@@ -23,7 +29,10 @@ class CustomerService {
     return await CustomerModel.find();
   }
   async findOne(id: string) {
-    const customer = await CustomerModel.findById(id).populate("user");
+    const customer = await CustomerModel.findById(id).populate(
+      "user",
+      "-password"
+    );
     if (!customer) {
       throw boom.notFound("customer not found");
     }
