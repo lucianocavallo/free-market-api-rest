@@ -2,6 +2,7 @@ import express, { Request, Response, NextFunction } from "express";
 import passport from "passport";
 import { config } from "../config/config";
 import jwt from "jsonwebtoken";
+
 const router = express.Router();
 
 router.post(

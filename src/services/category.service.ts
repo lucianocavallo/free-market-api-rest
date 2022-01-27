@@ -37,4 +37,4 @@ class CategoryService {
   }
 }
 
-export default CategoryService;
+export { CategoryService };

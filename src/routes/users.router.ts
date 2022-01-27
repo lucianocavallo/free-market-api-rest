@@ -1,13 +1,13 @@
 import express, { Request, Response, NextFunction } from "express";
-import UserService from "../services/user.service";
 import passport from "passport";
 
+import { UserService } from "../services/user.service";
+import { validatorHandler } from "../middlewares/validator.handler";
 import {
   getUserSchema,
   createUserSchema,
   updateUserSchema,
 } from "../schemas/user.schema";
-import { validatorHandler } from "../middlewares/validator.handler";
 
 const router = express.Router();
 const service = new UserService();

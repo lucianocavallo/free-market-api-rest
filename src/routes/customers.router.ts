@@ -1,12 +1,12 @@
 import express, { Request, Response, NextFunction } from "express";
-import CustomerService from "../services/customer.service";
 
+import { CustomerService } from "../services/customer.service";
+import { validatorHandler } from "../middlewares/validator.handler";
 import {
   getCustomerSchema,
   createCustomerSchema,
   updateCustomerSchema,
 } from "../schemas/customer.schema";
-import { validatorHandler } from "../middlewares/validator.handler";
 
 const router = express.Router();
 const service = new CustomerService();

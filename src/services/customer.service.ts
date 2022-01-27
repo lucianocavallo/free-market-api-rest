@@ -57,4 +57,4 @@ class CustomerService {
   }
 }
 
-export default CustomerService;
+export { CustomerService };

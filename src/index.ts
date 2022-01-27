@@ -1,6 +1,6 @@
 import express, { Request, Response, Application } from "express";
 import routerApi from "./routes";
-import connectDb from "./libs/mongoose";
+import { connectDb } from "./libs/mongoose";
 import { config } from "./config/config";
 import { errorHandler, boomErrorHandler } from "./middlewares/error.handler";
 

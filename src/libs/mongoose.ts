@@ -7,4 +7,4 @@ async function connectDb(url: string) {
     .catch((error) => console.error(error));
 }
 
-export default connectDb;
+export { connectDb };

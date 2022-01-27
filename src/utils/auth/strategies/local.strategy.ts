@@ -1,7 +1,7 @@
 import { Strategy } from "passport-local";
 import boom from "@hapi/boom";
 import bcrypt from "bcrypt";
-import UserService from "../../../services/user.service";
+import { UserService } from "../../../services/user.service";
 
 const service = new UserService();
 

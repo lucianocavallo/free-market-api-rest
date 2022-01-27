@@ -1,7 +1,7 @@
 import express, { Request, Response, NextFunction } from "express";
 import passport from "passport";
 
-import CategoryService from "../services/category.service";
+import { CategoryService } from "../services/category.service";
 import { checkRoles } from "../middlewares/auth.handler";
 import { validatorHandler } from "../middlewares/validator.handler";
 import {

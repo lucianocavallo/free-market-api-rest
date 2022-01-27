@@ -1,6 +1,6 @@
 import express, { Request, Response, NextFunction } from "express";
-import ProductService from "../services/product.service";
 
+import { ProductService } from "../services/product.service";
 import { validatorHandler } from "../middlewares/validator.handler";
 import {
   getProductSchema,
