@@ -13,7 +13,7 @@ class CategoryService {
     return await CategoryModel.find();
   }
   async findOne(id: string) {
-    const category = await CategoryModel.findById(id);
+    const category = await CategoryModel.findById(id).populate("products");
     if (!category) {
       throw boom.notFound("category not found");
     }

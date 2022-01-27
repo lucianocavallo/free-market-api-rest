@@ -12,7 +12,6 @@ class OrderService {
       throw boom.conflict(error as string);
     }
     const customer = await CustomerModel.findById(order.customer);
-    console.log(customer);
 
     customer.orders = [...customer.orders, order._id];
     try {
