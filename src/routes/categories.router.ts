@@ -1,5 +1,6 @@
 import express, { Request, Response, NextFunction } from "express";
 import CategoryService from "../services/category.service";
+import passport from "passport";
 
 import {
   getCategorySchema,
@@ -13,6 +14,7 @@ const service = new CategoryService();
 
 router.post(
   "/",
+  passport.authenticate("jwt", { session: false }),
   validatorHandler(createCategorySchema, "body"),
   async (req: Request, res: Response, next: NextFunction) => {
     try {
@@ -66,6 +68,7 @@ router.patch(
 
 router.delete(
   "/:id",
+  passport.authenticate("jwt", { session: false }),
   validatorHandler(getCategorySchema, "params"),
   async (req: Request, res: Response, next: NextFunction) => {
     try {

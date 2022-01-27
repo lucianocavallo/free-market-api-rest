@@ -1,5 +1,6 @@
 import express, { Request, Response, NextFunction } from "express";
 import UserService from "../services/user.service";
+import passport from "passport";
 
 import {
   getUserSchema,
@@ -13,6 +14,7 @@ const service = new UserService();
 
 router.post(
   "/",
+  passport.authenticate("jwt", { session: false }),
   validatorHandler(createUserSchema, "body"),
   async (req: Request, res: Response, next: NextFunction) => {
     try {
