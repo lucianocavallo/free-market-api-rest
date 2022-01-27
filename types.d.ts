@@ -26,7 +26,7 @@ interface InputCustomer {
   firstName: string;
   lastName: string;
   phone: string;
-  user: string;
+  user: { email: string; password: string };
   orders: string[];
 }
 

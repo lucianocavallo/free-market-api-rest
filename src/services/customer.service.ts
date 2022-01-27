@@ -1,9 +1,18 @@
 import { CustomerModel } from "../models/customer.model";
+import { UserModel } from "../models/user.model";
 import boom from "@hapi/boom";
 
 class CustomerService {
   async create(data: InputCustomer) {
-    const newCustomer = new CustomerModel(data);
+    const { user } = data;
+    const newUser = new UserModel({ ...user, role: "customer" });
+    let userRes;
+    try {
+      userRes = await newUser.save();
+    } catch (error) {
+      throw boom.conflict(error as string);
+    }
+    const newCustomer = new CustomerModel({ ...data, user: userRes._id });
     try {
       return await newCustomer.save();
     } catch (error) {
@@ -14,7 +23,7 @@ class CustomerService {
     return await CustomerModel.find();
   }
   async findOne(id: string) {
-    const customer = await CustomerModel.findById(id);
+    const customer = await CustomerModel.findById(id).populate("user");
     if (!customer) {
       throw boom.notFound("customer not found");
     }
@@ -34,7 +43,8 @@ class CustomerService {
     if (!customer) {
       throw boom.notFound("customer not found");
     }
-    return customer;
+    const user = await UserModel.findByIdAndDelete(customer.user);
+    return { user, customer };
   }
 }
 

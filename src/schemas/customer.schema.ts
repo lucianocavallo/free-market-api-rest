@@ -5,9 +5,13 @@ const firstName = Joi.string().min(3).max(20);
 const lastName = Joi.string().min(3).max(20);
 const phone = Joi.string();
 const orders = Joi.array();
+const user = Joi.object({
+  email: Joi.string().email(),
+  password: Joi.string(),
+});
 
 const createCustomerSchema = Joi.object({
-  user: id,
+  user: user.required(),
   firstName: firstName.required(),
   lastName: lastName.required(),
   phone: phone.required(),
