@@ -3,7 +3,7 @@ import cors from "cors";
 const whitelist = [
   "http://127.0.0.1:5500",
   "http://localhost:5500",
-  "https://myapp.co.uk.as",
+  "https://free-market-restful-api.herokuapp.com",
 ];
 
 const options: CorsOptions = {
