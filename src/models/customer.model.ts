@@ -12,11 +12,7 @@ const CustomerSchema = new Schema({
       ref: "Order",
     },
   ],
-  firstName: {
-    type: String,
-    required: true,
-  },
-  lastName: {
+  name: {
     type: String,
     required: true,
   },

@@ -20,7 +20,11 @@ class CustomerService {
     }
     const newCustomer = new CustomerModel({ ...data, user: userRes._id });
     try {
-      return await newCustomer.save();
+      const customer = await newCustomer.save();
+      return {
+        user: userRes,
+        customer,
+      };
     } catch (error) {
       throw boom.conflict(error as string);
     }

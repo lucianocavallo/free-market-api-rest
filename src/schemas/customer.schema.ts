@@ -1,8 +1,7 @@
 import Joi from "joi";
 
 const id = Joi.string().regex(/^[0-9a-fA-F]{24}$/);
-const firstName = Joi.string().min(3).max(20);
-const lastName = Joi.string().min(3).max(20);
+const name = Joi.string().min(4);
 const phone = Joi.string();
 const orders = Joi.array();
 const user = Joi.object({
@@ -12,14 +11,12 @@ const user = Joi.object({
 
 const createCustomerSchema = Joi.object({
   user: user.required(),
-  firstName: firstName.required(),
-  lastName: lastName.required(),
+  name: name.required(),
   phone: phone.required(),
 });
 
 const updateCustomerSchema = Joi.object({
-  firstName,
-  lastName,
+  name,
   phone,
   orders,
 });
