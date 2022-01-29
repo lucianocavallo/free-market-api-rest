@@ -1,14 +1,22 @@
 {
-  "name": "practica-backend",
+  "name": "free-market-2",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "dist/index.js",
   "scripts": {
     "lint": "eslint src/**/*.ts",
     "build:dev": "tsc --watch",
-    "dev": "nodemon dist/index.js"
+    "dev": "nodemon dist/index.js",
+    "tsc": "tsc",
+    "postinstall": "tsc",
+    "start": "node dist/index.js"
   },
-  "keywords": [],
+  "keywords": [
+    "typescript",
+    "node.js",
+    "express.js",
+    "restful-api"
+  ],
   "author": "Luciano Cavallo <lucianocavallo@gmail.com>",
   "license": "MIT",
   "dependencies": {
@@ -39,5 +47,8 @@
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-prettier": "^4.0.0",
     "prettier": "^2.5.1"
+  },
+  "engines": {
+    "node": "16.13.1"
   }
 }
