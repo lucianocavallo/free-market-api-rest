@@ -12,7 +12,9 @@ router.post(
     try {
       const { user } = req;
       const payload = {
+        //@ts-ignore
         sub: user?._id,
+        //@ts-ignore
         role: user?.role,
       };
 

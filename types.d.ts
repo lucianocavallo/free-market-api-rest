@@ -41,3 +41,9 @@ type CorsOptions =
       Request<ParamsDictionary, any, any, ParsedQs, Record<string, any>>
     >
   | undefined;
+
+interface JwtUser {
+  _id: string;
+  role: string;
+  sub: string;
+}
