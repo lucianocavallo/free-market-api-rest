@@ -1,6 +1,8 @@
 import { ProductModel } from "../models/product.model";
 import { CategoryModel } from "../models/category.model";
 import boom from "@hapi/boom";
+import QueryString from "qs";
+
 class ProductService {
   async create(data: InputProduct) {
     const product = new ProductModel(data);
@@ -19,7 +21,14 @@ class ProductService {
     }
   }
 
-  async find() {
+  async find(query: QueryString.ParsedQs) {
+    const limit = query.limit as string;
+    const offset = query.offset as string;
+    if (limit && offset) {
+      return await ProductModel.find()
+        .skip(parseInt(offset))
+        .limit(parseInt(limit));
+    }
     return await ProductModel.find();
   }
 
