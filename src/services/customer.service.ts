@@ -46,7 +46,7 @@ class CustomerService {
   }
 
   async findByUserId(id: string) {
-    const customer = await CustomerModel.find({ user: id }).populate("user");
+    const customer = await CustomerModel.findOne({ user: id }).populate("user");
     console.log(customer);
     return customer;
   }
