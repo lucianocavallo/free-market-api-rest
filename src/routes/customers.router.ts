@@ -48,6 +48,20 @@ router.get(
   }
 );
 
+router.get(
+  "/by-user-id/:id",
+  validatorHandler(getCustomerSchema, "params"),
+  async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const { id } = req.params;
+      const user = await service.findByUserId(id);
+      res.status(200).json(user);
+    } catch (error) {
+      next(error);
+    }
+  }
+);
+
 router.patch(
   "/:id",
   validatorHandler(getCustomerSchema, "params"),

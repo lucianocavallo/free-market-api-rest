@@ -1,4 +1,5 @@
 import express, { Request, Response, NextFunction } from "express";
+import passport from "passport";
 
 import { OrderService } from "../services/order.service";
 import { validatorHandler } from "../middlewares/validator.handler";
@@ -13,6 +14,7 @@ const service = new OrderService();
 
 router.post(
   "/",
+  passport.authenticate("jwt", { session: false }),
   validatorHandler(createOrderSchema, "body"),
   async (req: Request, res: Response, next: NextFunction) => {
     try {

@@ -29,9 +29,11 @@ class CustomerService {
       throw boom.conflict(error as string);
     }
   }
+
   async find() {
     return await CustomerModel.find();
   }
+
   async findOne(id: string) {
     const customer = await CustomerModel.findById(id).populate(
       "user",
@@ -42,6 +44,13 @@ class CustomerService {
     }
     return customer;
   }
+
+  async findByUserId(id: string) {
+    const customer = await CustomerModel.find({ user: id }).populate("user");
+    console.log(customer);
+    return customer;
+  }
+
   async update(id: string, changes: InputCustomer) {
     const customer = await CustomerModel.findByIdAndUpdate(id, changes, {
       new: true,
@@ -51,6 +60,7 @@ class CustomerService {
     }
     return customer;
   }
+
   async delete(id: string) {
     const customer = await CustomerModel.findByIdAndDelete(id);
     if (!customer) {
