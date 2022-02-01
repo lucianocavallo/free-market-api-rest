@@ -1,9 +1,10 @@
 import express, { Request, Response, NextFunction } from "express";
 import passport from "passport";
-import { config } from "../config/config";
-import jwt from "jsonwebtoken";
+
+import { AuthService } from "../services/auth.service";
 
 const router = express.Router();
+const service = new AuthService();
 
 router.post(
   "/login",
@@ -11,18 +12,21 @@ router.post(
   async (req: Request, res: Response, next: NextFunction) => {
     try {
       const { user } = req;
-      const payload = {
-        //@ts-ignore
-        sub: user?._id,
-        //@ts-ignore
-        role: user?.role,
-      };
+      const servRes = await service.signToken(user as JwtUser);
+      res.json(servRes);
+    } catch (error) {
+      next(error);
+    }
+  }
+);
 
-      const token = await jwt.sign(payload, config.jwtSecret as string);
-      res.json({
-        user,
-        token,
-      });
+router.post(
+  "/recovery",
+  async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const { email } = req.body;
+      const servRes = await service.sendMail(email);
+      res.json(servRes);
     } catch (error) {
       next(error);
     }
