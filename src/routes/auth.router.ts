@@ -33,4 +33,17 @@ router.post(
   }
 );
 
+router.post(
+  "/change-password",
+  async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const { token, newPassword } = req.body;
+      const servRes = await service.changePassword(token, newPassword);
+      res.json(servRes);
+    } catch (error) {
+      next(error);
+    }
+  }
+);
+
 export default router;

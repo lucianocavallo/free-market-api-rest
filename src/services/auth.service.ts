@@ -70,6 +70,21 @@ class AuthService {
     const info = await transporter.sendMail(infoMail);
     return { message: "mail sent", info };
   }
+
+  async changePassword(token: string, newPassword: string) {
+    try {
+      const payload = jwt.verify(token, config.jwtSecret as string);
+      const user = await service.findOne(payload.sub as string);
+      if (user.recoveryToken !== token) {
+        throw boom.unauthorized;
+      }
+      const hash = await bcrypt.hash(newPassword, 10);
+      await service.update(user._id, { recoveryToken: "", password: hash });
+      return { message: "password changed" };
+    } catch (error) {
+      throw boom.unauthorized();
+    }
+  }
 }
 
 export { AuthService };
