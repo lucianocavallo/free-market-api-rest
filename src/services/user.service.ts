@@ -3,7 +3,7 @@ import boom from "@hapi/boom";
 import bcrypt from "bcrypt";
 class UserService {
   async create(data: InputUser) {
-    const hash = await bcrypt.hash(data.password, 10);
+    const hash = await bcrypt.hash(data.password as string, 10);
     const newUser = new UserModel({ ...data, password: hash });
     try {
       const dbRes = await newUser.save();

@@ -18,6 +18,9 @@ const UserSchema = new Schema({
     type: Date,
     default: Date.now,
   },
+  recoveryToken: {
+    type: String,
+  },
 });
 
 const UserModel = model("User", UserSchema);

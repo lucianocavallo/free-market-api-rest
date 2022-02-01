@@ -25,7 +25,7 @@ router.post(
   async (req: Request, res: Response, next: NextFunction) => {
     try {
       const { email } = req.body;
-      const servRes = await service.sendMail(email);
+      const servRes = await service.sendRecovery(email);
       res.json(servRes);
     } catch (error) {
       next(error);

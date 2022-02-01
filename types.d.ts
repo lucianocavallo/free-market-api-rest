@@ -5,9 +5,10 @@ interface User {
 }
 
 interface InputUser {
-  email: string;
-  password: string;
-  role: string;
+  email?: string;
+  password?: string;
+  role?: string;
+  recoveryToken?: string;
 }
 
 interface InputProduct {
@@ -46,4 +47,12 @@ interface JwtUser {
   _id: string;
   role: string;
   sub: string;
+}
+
+interface InfoMail {
+  from: string;
+  to: string;
+  subject: string;
+  // text: string;
+  html: string;
 }
